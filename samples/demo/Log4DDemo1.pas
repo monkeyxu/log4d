@@ -8,11 +8,11 @@ unit Log4DDemo1;
 
 interface
 
-{$I Defines.inc}
+//{$I Defines.inc}
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, Log4D, Log4DXML;
+  StdCtrls, ExtCtrls, Log4D;
 
 type
   { A custom appender to write to a named memo component. }

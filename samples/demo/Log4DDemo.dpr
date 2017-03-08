@@ -3,9 +3,7 @@ program Log4DDemo;
 uses
   Forms,
   Log4DDemo1 in 'Log4DDemo1.pas' {frmLog4DDemo},
-  Log4D in '..\src\Log4D.pas',
-  Log4DIndy in '..\src\Log4DIndy.pas',
-  Log4DXML in '..\src\Log4DXML.pas';
+  Log4D in '..\..\src\Log4D.pas';
 
 {$R *.RES}
 
