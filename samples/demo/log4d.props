@@ -46,10 +46,18 @@ log4d.appender.Mem4.layout=TLogSimpleLayout
 #TLogXMLLayout
 
 # Create a file appender
-log4d.appender.Fil1=TLogFileAppender
-log4d.appender.Fil1.append=true
-log4d.appender.Fil1.fileName=C:\Temp\Log4D.log
-log4d.appender.Fil1.errorHandler=TLogOnlyOnceErrorHandler
+#log4d.appender.Fil1=TLogFileAppender
+#log4d.appender.Fil1.append=true
+#log4d.appender.Fil1.fileName=C:\Temp\Log4D.log
+#log4d.appender.Fil1.errorHandler=TLogOnlyOnceErrorHandler
+#log4d.appender.Fil1.layout=TLogPatternLayout
+#log4d.appender.Fil1.layout.pattern=%r [%t] %p %c %x - %m%n
+
+
+log4d.appender.Fil1=TLogDailyFileAppender
+log4d.appender.Fil1.filedir=.\log
+log4d.appender.Fil1.prefix=abc
+log4d.appender.Fil1.datapattern=YYYYMMDD
 log4d.appender.Fil1.layout=TLogPatternLayout
 log4d.appender.Fil1.layout.pattern=%r [%t] %p %c %x - %m%n
 

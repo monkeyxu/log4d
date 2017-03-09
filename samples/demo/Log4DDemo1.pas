@@ -12,7 +12,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, Log4D;
+  StdCtrls, ExtCtrls, Log4D, System.IOUtils;
 
 type
   { A custom appender to write to a named memo component. }
@@ -222,6 +222,8 @@ begin
   FLogs[cmbLogger.ItemIndex].Log(Level, edtMessage.Text);
   // Log the edit control as an object as well
   FLogs[cmbLogger.ItemIndex].Log(Level, edtMessage);
+
+//  TFile.g
 end;
 
 { Add a context entry. }

@@ -143,6 +143,12 @@ const
   MaxFileSizeOpt = 'maxFileSize';
   { Maximum number of backup files option for TLogRollingFileAppender }
   MaxBackupIndexOpt = 'maxBackupIndex';
+  { filedir option for TLogDailyFileAppender }
+  FileDir = 'filedir';
+  { prefix file name option for TLogDailyFileAppender }
+  FilePrefix = 'prefix';
+  { DataPattern option for TLogDailyFileAppender }
+  DataPattern = 'datapattern';
 
   DEFAULT_MAX_FILE_SIZE = 10*1024*1024;
   DEFAULT_MAX_BACKUP_INDEX = 1;
@@ -960,6 +966,30 @@ type
     procedure RollOver; virtual;        // just in case someone wants to override it...
     property MaxFileSize : integer read FMaxFileSize;
     property MaxBackupIndex : integer read FMaxBackupIndex;
+  end;
+
+
+  { Send log messages to a file which uses logfile Daily
+
+    Accepts the following options:
+
+    # Class identification
+    log4d.appender.<name>=TLogDailyFileAppender
+    # Name of the file to write to, string, mandatory
+    log4d.appender.<name>.filedir=C:\Logs\
+  }
+  TLogDailyFileAppender = class(TLogFileAppender)
+  private
+    FBaseDir: string;
+    FBaseDate: string;
+    FFileDir: string;
+    FDataPattern: string;
+    FPrefix: string;
+  protected
+    procedure SetOption(const Name, Value: string); override;
+    procedure DoAppend(const msg: string); override;
+  public
+    procedure Init; override;
   end;
 
 { Configurators ---------------------------------------------------------------}
@@ -3167,7 +3197,6 @@ begin
   finally
     LeaveCriticalSection(FCriticalAppender);
   end;
-
 end;
 
 { OptionConvertors ------------------------------------------------------------}
@@ -4036,6 +4065,66 @@ begin
   NDC.Free;
 end;
 
+{ TLogDailyFileAppender }
+
+procedure TLogDailyFileAppender.DoAppend(const msg: string);
+var
+  NewDate: string;
+  theFileName: string;
+begin
+  NewDate := FormatDateTime('YYYYMMDD', Now);
+  if (NewDate <> FBaseDate) or (FFileName = '') then
+  begin
+    FBaseDate := NewDate;
+    try
+      theFileName := FFileDir + FPrefix + FormatDateTime(FDataPattern, Now) + '.log';
+    except
+      theFileName := FFileDir + FPrefix + FBaseDate + '.log';
+    end;
+    SetLogFile(theFileName);
+  end;
+  inherited;
+end;
+
+procedure TLogDailyFileAppender.Init;
+begin
+  inherited;
+  FBaseDir := IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
+  FBaseDate := FormatDateTime('YYYYMMDD', Now);
+  FFileDir := FFileDir;
+  FDataPattern := 'YYYYMMDD';
+  FPrefix := ChangeFileExt(ExtractFileName(ParamStr(0)), '');
+  FAppend := False;
+  FFileName := '';
+end;
+
+procedure TLogDailyFileAppender.SetOption(const Name, Value: string);
+var
+  tmpDir: string;
+begin
+//  inherited SetOption(Name, Value);
+  EnterCriticalSection(FCriticalAppender);
+  try
+    if (Name = DataPattern) and (Value <> '') then
+    begin
+      FDataPattern := Value;
+    end
+    else if (Name = FileDir) and (Value <> '') then
+    begin
+      tmpDir := GetCurrentDir;
+      SetCurrentDir(FBaseDir);
+      FFileDir := IncludeTrailingPathDelimiter(ExpandFileName(Value));
+      SetCurrentDir(tmpDir);
+    end
+    else if (Name = FilePrefix) and (Value <> '') then
+    begin
+      FPrefix := Value;
+    end;
+  finally
+    LeaveCriticalSection(FCriticalAppender);
+  end;
+end;
+
 initialization
   { Timestamping. }
   StartTime := Now;
@@ -4091,6 +4180,7 @@ initialization
   RegisterAppender(TLogODSAppender);
   RegisterAppender(TLogStreamAppender);
   RegisterAppender(TLogRollingFileAppender);
+  RegisterAppender(TLogDailyFileAppender);
   { Standard logger factory and hierarchy. }
   DefaultLoggerFactory := TLogDefaultLOggerFactory.Create;
   DefaultLoggerFactory._AddRef;

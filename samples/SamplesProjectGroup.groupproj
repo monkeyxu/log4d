@@ -1,8 +1,11 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{E7B08A88-7189-4FAF-B3C2-E07F8FA1EB5E}</ProjectGuid>
+        <ProjectGuid>{95F7CB53-97CB-4D4D-B50C-ACBAD130D944}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="demo\Log4DDemo.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="ODSAppender\ODSAppender.dproj">
             <Dependencies/>
         </Projects>
@@ -14,6 +17,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="Log4DDemo">
+        <MSBuild Projects="demo\Log4DDemo.dproj"/>
+    </Target>
+    <Target Name="Log4DDemo:Clean">
+        <MSBuild Projects="demo\Log4DDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Log4DDemo:Make">
+        <MSBuild Projects="demo\Log4DDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="ODSAppender">
         <MSBuild Projects="ODSAppender\ODSAppender.dproj"/>
     </Target>
@@ -24,13 +36,13 @@
         <MSBuild Projects="ODSAppender\ODSAppender.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="ODSAppender"/>
+        <CallTarget Targets="Log4DDemo;ODSAppender"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ODSAppender:Clean"/>
+        <CallTarget Targets="Log4DDemo:Clean;ODSAppender:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ODSAppender:Make"/>
+        <CallTarget Targets="Log4DDemo:Make;ODSAppender:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
