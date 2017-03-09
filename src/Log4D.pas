@@ -892,6 +892,17 @@ type
     procedure DoAppend(const Message: string); override;
   end;
 
+  { Send log messages to console output. }
+  TLogConsoleAppender = class(TLogCustomAppender)
+  private
+    FInited: Boolean;
+  protected
+    procedure DoAppend(const Event: TLogEvent); override;
+    procedure DoAppend(const Message: string); override;
+  public
+    procedure Init; override;
+  end;
+
   { Send log messages to a stream. }
   TLogStreamAppender = class(TLogCustomAppender)
   private
@@ -1112,10 +1123,8 @@ var
 
 implementation
 
-{$IFDEF UNICODE}
-uses
-  Consts;
-{$ENDIF UNICODE}
+
+uses CRT32 {$IFDEF UNICODE}, Consts {$ENDIF UNICODE} ;
 
 const
   CRLF = #13#10;
@@ -4125,6 +4134,72 @@ begin
   end;
 end;
 
+{ TLogConsoleAppender }
+
+procedure TLogConsoleAppender.DoAppend(const Message: string);
+begin
+  Write(Message);
+end;
+
+procedure TLogConsoleAppender.Init;
+begin
+  inherited;
+  FInited := False;
+end;
+
+procedure TLogConsoleAppender.DoAppend(const Event: TLogEvent);
+begin
+  if not FInited then
+    FInited := CRT32.init;
+
+
+//  Intense = FOREGROUND_INTENSITY or BACKGROUND_INTENSITY;
+//  Black = 0;
+//  Blue = FOREGROUND_BLUE or BACKGROUND_BLUE;
+//  Green = FOREGROUND_GREEN or BACKGROUND_GREEN;
+//  Cyan = Blue and Green;
+//  Red = FOREGROUND_RED or BACKGROUND_RED;
+//  Magenta = Blue or Red;
+//  Brown = Green or Red;
+//  LightGray = Blue or Green or Red;
+//  DarkGray = LightGray;
+//  LightBlue = Blue or Intense;
+//  LightGreen = Green or Intense;
+//  LightCyan = Cyan or Intense;
+//  LightRed = Red or Intense;
+//  LightMagenta = Magenta or Intense;
+//  Yellow = Brown or Intense;
+//  White = LightGray or Intense;
+
+  if Event.FLevel = Fatal then
+  begin
+    CRT32.TextAttribut(White, Red);
+  end
+  else if Event.FLevel = Error then
+  begin
+    CRT32.TextColor(Yellow);
+  end
+  else if Event.FLevel = Warn then
+  begin
+    CRT32.TextColor(LightGreen);
+  end
+  else if Event.FLevel = Info then
+  begin
+    CRT32.TextColor(White);
+  end
+  else if Event.FLevel = Debug then
+  begin
+    CRT32.TextColor(Green);
+  end
+  else if Event.FLevel = Trace then
+  begin
+    CRT32.TextColor(White);
+  end
+  else
+    CRT32.TextColor(White);
+  inherited;
+end;
+
 initialization
   { Timestamping. }
   StartTime := Now;
@@ -4178,6 +4253,7 @@ initialization
   RegisterAppender(TLogFileAppender);
   RegisterAppender(TLogNullAppender);
   RegisterAppender(TLogODSAppender);
+  RegisterAppender(TLogConsoleAppender);
   RegisterAppender(TLogStreamAppender);
   RegisterAppender(TLogRollingFileAppender);
   RegisterAppender(TLogDailyFileAppender);

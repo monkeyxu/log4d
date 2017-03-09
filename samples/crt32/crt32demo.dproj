@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{E43520F3-F904-4771-AE9B-26A32B6AD3D7}</ProjectGuid>
-        <MainSource>Log4DDemo.dpr</MainSource>
+        <ProjectGuid>{331DB697-2A91-42BF-8911-0E05EC49A259}</ProjectGuid>
+        <MainSource>crt32demo.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
@@ -47,7 +47,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_F>false</DCC_F>
-        <SanitizedProjectName>Log4DDemo</SanitizedProjectName>
+        <SanitizedProjectName>crt32demo</SanitizedProjectName>
         <DCC_UnitSearchPath>$(DELPHI)\Lib\Debug;C:\Keith\Sourceforge\log4d\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DebugInformation>1</DCC_DebugInformation>
         <DCC_UNSAFE_CODE>true</DCC_UNSAFE_CODE>
@@ -106,8 +106,8 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Log4DDemo1.pas">
-            <Form>frmLog4DDemo</Form>
+        <DCCReference Include="crt32demofrm.pas">
+            <Form>frmCRT32</Form>
         </DCCReference>
         <DCCReference Include="..\..\src\Log4D.pas"/>
         <DCCReference Include="..\..\src\extended\CRT32.pas"/>
@@ -129,7 +129,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">Log4DDemo.dpr</Source>
+                    <Source Name="MainSource">crt32demo.dpr</Source>
                 </Source>
             </Delphi.Personality>
             <Platforms>
@@ -137,9 +137,15 @@
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment>
-                <DeployFile LocalName="Log4DDemo.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="\crt32demo.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>Log4DDemo.exe</RemoteName>
+                        <RemoteName>crt32demo.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="crt32demo.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>crt32demo.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -9,6 +9,9 @@
         <Projects Include="ODSAppender\ODSAppender.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="crt32\crt32demo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="ODSAppender:Make">
         <MSBuild Projects="ODSAppender\ODSAppender.dproj" Targets="Make"/>
     </Target>
+    <Target Name="crt32demo">
+        <MSBuild Projects="crt32\crt32demo.dproj"/>
+    </Target>
+    <Target Name="crt32demo:Clean">
+        <MSBuild Projects="crt32\crt32demo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="crt32demo:Make">
+        <MSBuild Projects="crt32\crt32demo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Log4DDemo;ODSAppender"/>
+        <CallTarget Targets="Log4DDemo;ODSAppender;crt32demo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Log4DDemo:Clean;ODSAppender:Clean"/>
+        <CallTarget Targets="Log4DDemo:Clean;ODSAppender:Clean;crt32demo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Log4DDemo:Make;ODSAppender:Make"/>
+        <CallTarget Targets="Log4DDemo:Make;ODSAppender:Make;crt32demo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

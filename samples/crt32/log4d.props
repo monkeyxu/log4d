@@ -2,7 +2,7 @@
 log4d.configDebug=true
 
 # Global logging level
-log4d.threshold=all
+log4d.threshold=info
 
 # Set logger factory
 log4d.loggerFactory=TLogDefaultLoggerFactory
@@ -54,17 +54,12 @@ log4d.appender.Mem4.layout=TLogSimpleLayout
 #log4d.appender.Fil1.layout.pattern=%r [%t] %p %c %x - %m%n
 
 
-#log4d.appender.Fil1=TLogDailyFileAppender
-#log4d.appender.Fil1.filedir=.\log
-#log4d.appender.Fil1.prefix=abc
-#log4d.appender.Fil1.datapattern=YYYYMMDD
-#log4d.appender.Fil1.layout=TLogPatternLayout
-#log4d.appender.Fil1.layout.pattern=%r [%t] %p %c %x - %m%n
-
-log4d.appender.Fil1=TLogConsoleAppender
+log4d.appender.Fil1=TLogDailyFileAppender
+log4d.appender.Fil1.filedir=.\log
+log4d.appender.Fil1.prefix=abc
+log4d.appender.Fil1.datapattern=YYYYMMDD
 log4d.appender.Fil1.layout=TLogPatternLayout
 log4d.appender.Fil1.layout.pattern=%r [%t] %p %c %x - %m%n
-
 
 # Create an e-mail appender
 log4d.appender.Email=TLogIndySMTPAppender
