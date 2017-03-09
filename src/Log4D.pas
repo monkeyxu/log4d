@@ -60,21 +60,32 @@ unit Log4D;
 interface
 
 {$DEFINE HAS_UNIT_CONTNRS}
+{$DEFINE CRT32}
+{$DEFINE CnDebug}
 
 uses
   Classes,
+{$IFDEF CRT32}
+  CRT32 ,
+{$ENDIF}
+
 {$IFDEF LINUX}
   SyncObjs,
 {$ELSE}
   Windows,
 {$ENDIF}
+
+{$IFDEF CNDEBUG}
+  CnDebug,
+{$ENDIF}
+
 {$IFDEF HAS_UNIT_CONTNRS}
   Contnrs,
 {$ENDIF}
+
   SysUtils
-{$IFDEF CNDEBUG}
-  , CnDebug
-{$ENDIF}
+
+
 ;
 
 const
@@ -896,6 +907,7 @@ type
     procedure DoAppend(const Message: string); override;
   end;
 
+  {$IFDEF CRT32}
   { Send log messages to console output. }
   TLogConsoleAppender = class(TLogCustomAppender)
   private
@@ -906,8 +918,11 @@ type
   public
     procedure Init; override;
   end;
+  {$ENDIF}
+
 
   {$IFDEF CNDEBUG}
+  { Send log messages to CnDebugViewer output. }
   TLogCnDebugAppender = class(TLogCustomAppender)
   protected
     procedure DoAppend(const Event: TLogEvent); override;
@@ -1135,7 +1150,7 @@ var
 implementation
 
 
-uses CRT32 {$IFDEF UNICODE}, Consts {$ENDIF UNICODE} ;
+uses {$IFDEF UNICODE} Consts {$ENDIF UNICODE} ;
 
 const
   CRLF = #13#10;
@@ -4145,6 +4160,8 @@ begin
   end;
 end;
 
+{$IFDEF CRT32}
+
 { TLogConsoleAppender }
 
 procedure TLogConsoleAppender.DoAppend(const Message: string);
@@ -4191,6 +4208,8 @@ begin
     CRT32.TextColor(White);
   inherited;
 end;
+
+{$ENDIF}
 
 
 {$IFDEF CNDEBUG}
@@ -4265,7 +4284,12 @@ initialization
   RegisterAppender(TLogFileAppender);
   RegisterAppender(TLogNullAppender);
   RegisterAppender(TLogODSAppender);
+  {$IFDEF CRT32}
   RegisterAppender(TLogConsoleAppender);
+  {$ENDIF}
+  {$IFDEF CnDebug}
+  RegisterAppender(TLogCnDebugAppender);
+  {$ENDIF}
   RegisterAppender(TLogStreamAppender);
   RegisterAppender(TLogRollingFileAppender);
   RegisterAppender(TLogDailyFileAppender);

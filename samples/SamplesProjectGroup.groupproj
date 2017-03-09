@@ -12,6 +12,9 @@
         <Projects Include="crt32\crt32demo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="chainsaw\Chainsaw.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="crt32demo:Make">
         <MSBuild Projects="crt32\crt32demo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Chainsaw">
+        <MSBuild Projects="chainsaw\Chainsaw.dproj"/>
+    </Target>
+    <Target Name="Chainsaw:Clean">
+        <MSBuild Projects="chainsaw\Chainsaw.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Chainsaw:Make">
+        <MSBuild Projects="chainsaw\Chainsaw.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Log4DDemo;ODSAppender;crt32demo"/>
+        <CallTarget Targets="Log4DDemo;ODSAppender;crt32demo;Chainsaw"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Log4DDemo:Clean;ODSAppender:Clean;crt32demo:Clean"/>
+        <CallTarget Targets="Log4DDemo:Clean;ODSAppender:Clean;crt32demo:Clean;Chainsaw:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Log4DDemo:Make;ODSAppender:Make;crt32demo:Make"/>
+        <CallTarget Targets="Log4DDemo:Make;ODSAppender:Make;crt32demo:Make;Chainsaw:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

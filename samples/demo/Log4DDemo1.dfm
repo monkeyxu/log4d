@@ -3,8 +3,8 @@ object frmLog4DDemo: TfrmLog4DDemo
   Top = 120
   ActiveControl = edtMessage
   Caption = 'Log4D Demo'
-  ClientHeight = 460
-  ClientWidth = 707
+  ClientHeight = 473
+  ClientWidth = 634
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,17 +20,18 @@ object frmLog4DDemo: TfrmLog4DDemo
     Left = 284
     Top = 76
     Width = 2
-    Height = 384
+    Height = 397
     ExplicitHeight = 507
   end
   object pnlControls: TPanel
     Left = 0
     Top = 0
-    Width = 707
+    Width = 634
     Height = 76
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 707
     object Label1: TLabel
       Left = 22
       Top = 7
@@ -206,10 +207,11 @@ object frmLog4DDemo: TfrmLog4DDemo
     Left = 0
     Top = 76
     Width = 284
-    Height = 384
+    Height = 397
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitHeight = 384
     object splLeft: TSplitter
       Left = 0
       Top = 209
@@ -235,12 +237,13 @@ object frmLog4DDemo: TfrmLog4DDemo
       Left = 0
       Top = 233
       Width = 284
-      Height = 151
+      Height = 164
       Hint = 'Output for '#39'myapp.more'#39' logger'
       Align = alClient
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 3
+      ExplicitHeight = 151
     end
     object pnlMyapp: TPanel
       Left = 0
@@ -356,15 +359,17 @@ object frmLog4DDemo: TfrmLog4DDemo
   object pnlRight: TPanel
     Left = 286
     Top = 76
-    Width = 421
-    Height = 384
+    Width = 348
+    Height = 397
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 421
+    ExplicitHeight = 384
     object splRight: TSplitter
       Left = 0
       Top = 212
-      Width = 421
+      Width = 348
       Height = 3
       Cursor = crVSplit
       Align = alTop
@@ -375,29 +380,32 @@ object frmLog4DDemo: TfrmLog4DDemo
     object memMyAppOther: TMemo
       Left = 0
       Top = 21
-      Width = 421
+      Width = 348
       Height = 191
       Hint = 'Output for '#39'myapp.other'#39' logger'
       Align = alTop
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 1
+      ExplicitWidth = 421
     end
     object memAlt: TMemo
       Left = 0
       Top = 236
-      Width = 421
-      Height = 148
+      Width = 348
+      Height = 161
       Hint = 'Output for '#39'alt'#39' logger'
       Align = alClient
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 3
+      ExplicitWidth = 421
+      ExplicitHeight = 148
     end
     object pnlMyappOther: TPanel
       Left = 0
       Top = 0
-      Width = 421
+      Width = 348
       Height = 21
       Align = alTop
       Alignment = taLeftJustify
@@ -410,12 +418,13 @@ object frmLog4DDemo: TfrmLog4DDemo
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
+      ExplicitWidth = 421
       DesignSize = (
-        421
+        348
         21)
       object chkMyappOtherAdditive: TCheckBox
         Tag = 2
-        Left = 357
+        Left = 284
         Top = 2
         Width = 61
         Height = 17
@@ -430,10 +439,11 @@ object frmLog4DDemo: TfrmLog4DDemo
         ParentFont = False
         TabOrder = 1
         OnClick = chkAdditiveChange
+        ExplicitLeft = 357
       end
       object cmbMyappOtherLevel: TComboBox
         Tag = 2
-        Left = 285
+        Left = 212
         Top = 0
         Width = 65
         Height = 21
@@ -448,12 +458,13 @@ object frmLog4DDemo: TfrmLog4DDemo
         ParentFont = False
         TabOrder = 0
         OnChange = cmbLoggerLevelChange
+        ExplicitLeft = 285
       end
     end
     object pnlAlt: TPanel
       Left = 0
       Top = 215
-      Width = 421
+      Width = 348
       Height = 21
       Align = alTop
       Alignment = taLeftJustify
@@ -466,12 +477,13 @@ object frmLog4DDemo: TfrmLog4DDemo
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 2
+      ExplicitWidth = 421
       DesignSize = (
-        421
+        348
         21)
       object chkAltAdditive: TCheckBox
         Tag = 3
-        Left = 357
+        Left = 284
         Top = 2
         Width = 61
         Height = 17
@@ -486,10 +498,11 @@ object frmLog4DDemo: TfrmLog4DDemo
         ParentFont = False
         TabOrder = 1
         OnClick = chkAdditiveChange
+        ExplicitLeft = 357
       end
       object cmbAltLevel: TComboBox
         Tag = 3
-        Left = 285
+        Left = 212
         Top = 0
         Width = 65
         Height = 21
@@ -504,6 +517,7 @@ object frmLog4DDemo: TfrmLog4DDemo
         ParentFont = False
         TabOrder = 0
         OnChange = cmbLoggerLevelChange
+        ExplicitLeft = 285
       end
     end
   end

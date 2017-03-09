@@ -4,9 +4,8 @@ uses
   Forms,
   ChainsawMain in 'ChainsawMain.pas' {frmChainsaw},
   ChainsawConfig in 'ChainsawConfig.pas' {frmConfig},
-  Log4D in '..\src\Log4D.pas',
-  Log4DXML in '..\src\Log4DXML.pas',
-  ChainsawData in 'ChainsawData.pas' {dtmLogging: TDataModule};
+  ChainsawData in 'ChainsawData.pas' {dtmLogging: TDataModule},
+  Log4D in '..\..\src\Log4D.pas';
 
 {$R *.res}
 
