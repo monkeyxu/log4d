@@ -71,7 +71,11 @@ uses
 {$IFDEF HAS_UNIT_CONTNRS}
   Contnrs,
 {$ENDIF}
-  SysUtils;
+  SysUtils
+{$IFDEF CNDEBUG}
+  , CnDebug
+{$ENDIF}
+;
 
 const
   Log4DVersion = '1.2.12';
@@ -902,6 +906,13 @@ type
   public
     procedure Init; override;
   end;
+
+  {$IFDEF CNDEBUG}
+  TLogCnDebugAppender = class(TLogCustomAppender)
+  protected
+    procedure DoAppend(const Event: TLogEvent); override;
+  end;
+  {$ENDIF}
 
   { Send log messages to a stream. }
   TLogStreamAppender = class(TLogCustomAppender)
@@ -4152,25 +4163,6 @@ begin
   if not FInited then
     FInited := CRT32.init;
 
-
-//  Intense = FOREGROUND_INTENSITY or BACKGROUND_INTENSITY;
-//  Black = 0;
-//  Blue = FOREGROUND_BLUE or BACKGROUND_BLUE;
-//  Green = FOREGROUND_GREEN or BACKGROUND_GREEN;
-//  Cyan = Blue and Green;
-//  Red = FOREGROUND_RED or BACKGROUND_RED;
-//  Magenta = Blue or Red;
-//  Brown = Green or Red;
-//  LightGray = Blue or Green or Red;
-//  DarkGray = LightGray;
-//  LightBlue = Blue or Intense;
-//  LightGreen = Green or Intense;
-//  LightCyan = Cyan or Intense;
-//  LightRed = Red or Intense;
-//  LightMagenta = Magenta or Intense;
-//  Yellow = Brown or Intense;
-//  White = LightGray or Intense;
-
   if Event.FLevel = Fatal then
   begin
     CRT32.TextAttribut(White, Red);
@@ -4199,6 +4191,26 @@ begin
     CRT32.TextColor(White);
   inherited;
 end;
+
+
+{$IFDEF CNDEBUG}
+{ TLogCnDebugAppender }
+
+procedure TLogCnDebugAppender.DoAppend(const Event: TLogEvent);
+var
+  msgtxt: string;
+begin
+  msgtxt := FLayout.Format(Event);
+  if Event.FLevel = Error then
+    CnDebugger.LogMsgError(msgtxt)
+  else if Event.FLevel = Warn then
+    CnDebugger.LogMsgWarning(msgtxt)
+  else
+    CnDebugger.LogMsg(msgtxt);
+end;
+
+{$ENDIF}
+
 
 initialization
   { Timestamping. }
