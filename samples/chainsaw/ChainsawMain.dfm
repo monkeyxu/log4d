@@ -93,8 +93,6 @@ object frmChainsaw: TfrmChainsaw
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitTop = 544
-    ExplicitWidth = 615
   end
   object memDetails: TRichEdit
     Left = 4
@@ -111,8 +109,6 @@ object frmChainsaw: TfrmChainsaw
     ReadOnly = True
     TabOrder = 17
     Zoom = 100
-    ExplicitTop = 392
-    ExplicitWidth = 613
   end
   object cmbLevel: TComboBox
     Left = 160
@@ -215,7 +211,6 @@ object frmChainsaw: TfrmChainsaw
     Caption = '&Clear Filter'
     TabOrder = 14
     OnClick = btnClearClick
-    ExplicitLeft = 540
   end
   object edtNDC: TEdit
     Left = 160
@@ -292,7 +287,6 @@ object frmChainsaw: TfrmChainsaw
     Caption = 'Clear Log'
     TabOrder = 15
     OnClick = mniClearClick
-    ExplicitLeft = 540
   end
   object mnuMain: TMainMenu
     Left = 148
