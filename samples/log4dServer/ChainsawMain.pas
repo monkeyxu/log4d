@@ -15,7 +15,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, StdCtrls, DBGrids, DB, DBClient, Log4D, Menus, ComCtrls,
   IdBaseComponent, IdComponent, IdUDPBase, IdUDPServer, IdSocketHandle,
-  DateUtils, StrUtils;
+  DateUtils, StrUtils, IdGlobal;
 
 type
   TfrmChainsaw = class(TForm)
@@ -86,7 +86,8 @@ type
     procedure mniSaveClick(Sender: TObject);
     procedure popMenuPopup(Sender: TObject);
     procedure srcLoggingDataChange(Sender: TObject; Field: TField);
-    procedure udpServerUDPRead(AThread: TIdUDPListenerThread; AData: TBytes; ABinding: TIdSocketHandle);
+    procedure udpServerUDPRead(AThread: TIdUDPListenerThread; const AData:
+        TIdBytes; ABinding: TIdSocketHandle);
   private
     FClearing: Boolean;
     procedure Configure;
@@ -103,7 +104,6 @@ implementation
 {$R *.dfm}
 
 uses
-  IdGlobal,
   ChainsawConfig,
 //  ChainsawFiler,
   ChainsawData;
@@ -427,7 +427,8 @@ end;
   message#9threadId#9timestamp(yyyymmddhhnnsszzz)#9elapsedTime(ms)#9
   levelName#9levelValue#9loggerName#9NDC#9errorMessage#9errorClass
   This is the format used by default by the TLogIndySocketAppender. }
-procedure TfrmChainsaw.udpServerUDPRead(AThread: TIdUDPListenerThread; AData: TBytes; ABinding: TIdSocketHandle);
+procedure TfrmChainsaw.udpServerUDPRead(AThread: TIdUDPListenerThread; const
+    AData: TIdBytes; ABinding: TIdSocketHandle);
 var
   Event, Value: string;
   Index, Field: Integer;
@@ -436,54 +437,54 @@ var
   NDC, ErrorMessage, ErrorClass: string;
   ElapsedTime, LevelValue: Integer;
 begin
-//    Event := BytesToString(AData);
-//    if Event = '' then
-//      Exit;
-//    ElapsedTime := 0;
-//    LevelValue  := 0;
-//    Timestamp   := Now;
-//    Field       := 1;
-//    repeat
-//      Index := Pos(#9, Event);
-//      if Index > 0 then
-//      begin
-//        Value := Copy(Event, 1, Index - 1);
-//        Delete(Event, 1, Index);
-//      end
-//      else
-//        Value := Event;
-//      case Field of
-//        1:  Message  := Value;
-//        2:  ThreadId := Value;
-//        3:  try
-//              Timestamp := EncodeDateTime(StrToInt(Copy(Value, 1, 4)),
-//                StrToInt(Copy(Value, 5, 2)), StrToInt(Copy(Value, 7, 2)),
-//                StrToInt(Copy(Value, 9, 2)), StrToInt(Copy(Value, 11, 2)),
-//                StrToInt(Copy(Value, 13, 2)), StrToInt(Copy(Value, 15, 3)));
-//            except on E: EConvertError do
-//              // Ignore
-//            end;
-//        4:  try
-//              ElapsedTime := StrToInt(Value);
-//            except on E: EConvertError do
-//              ElapsedTime := 0;
-//            end;
-//        5:  LevelName := Value;
-//        6:  try
-//              LevelValue := StrToInt(Value);
-//            except on E: EConvertError do
-//              LevelValue := 0;
-//            end;
-//        7:  LoggerName   := Value;
-//        8:  NDC          := Value;
-//        9:  ErrorMessage := Value;
-//        10: ErrorClass   := Value;
-//      end;
-//      Inc(Field);
-//    until Index = 0;
-//    if LevelValue >= frmConfig.Threshold.Level then
-//      dtmLogging.AddLog(Message, ThreadId, Timestamp, ElapsedTime, LevelName,
-//        LevelValue, LoggerName, NDC, ErrorMessage, ErrorClass);
+  Event := BytesToString(AData);
+  if Event = '' then
+    Exit;
+  ElapsedTime := 0;
+  LevelValue  := 0;
+  Timestamp   := Now;
+  Field       := 1;
+  repeat
+    Index := Pos(#9, Event);
+    if Index > 0 then
+    begin
+      Value := Copy(Event, 1, Index - 1);
+      Delete(Event, 1, Index);
+    end
+    else
+      Value := Event;
+    case Field of
+      1:  Message  := Value;
+      2:  ThreadId := Value;
+      3:  try
+            Timestamp := EncodeDateTime(StrToInt(Copy(Value, 1, 4)),
+              StrToInt(Copy(Value, 5, 2)), StrToInt(Copy(Value, 7, 2)),
+              StrToInt(Copy(Value, 9, 2)), StrToInt(Copy(Value, 11, 2)),
+              StrToInt(Copy(Value, 13, 2)), StrToInt(Copy(Value, 15, 3)));
+          except on E: EConvertError do
+            // Ignore
+          end;
+      4:  try
+            ElapsedTime := StrToInt(Value);
+          except on E: EConvertError do
+            ElapsedTime := 0;
+          end;
+      5:  LevelName := Value;
+      6:  try
+            LevelValue := StrToInt(Value);
+          except on E: EConvertError do
+            LevelValue := 0;
+          end;
+      7:  LoggerName   := Value;
+      8:  NDC          := Value;
+      9:  ErrorMessage := Value;
+      10: ErrorClass   := Value;
+    end;
+    Inc(Field);
+  until Index = 0;
+  if LevelValue >= frmConfig.Threshold.Level then
+    dtmLogging.AddLog(Message, ThreadId, Timestamp, ElapsedTime, LevelName,
+      LevelValue, LoggerName, NDC, ErrorMessage, ErrorClass);
 end;
 
 end.

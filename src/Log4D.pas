@@ -60,7 +60,7 @@ unit Log4D;
 interface
 
 {$DEFINE HAS_UNIT_CONTNRS}
-//{$DEFINE CRT32}
+{$DEFINE CRT32}
 {$DEFINE CnDebug}
 
 uses

@@ -129,7 +129,7 @@ begin
   inherited SetOption(Name, Value);
   if (Name = 'memo') and (Value <> '') then
   begin
-    FMemo := frmLog4DDemo.FindComponent(Value) as TMemo;
+    FMemo := frmlog4dClient.FindComponent(Value) as TMemo;
     WriteHeader;
   end;
 end;
@@ -156,7 +156,7 @@ begin
   end;
 end;
 
-{ TfrmLog4DDemo ---------------------------------------------------------------}
+{ Tfrmlog4dClient ---------------------------------------------------------------}
 
 { Initialisation. }
 procedure Tfrmlog4dClient.FormCreate(Sender: TObject);

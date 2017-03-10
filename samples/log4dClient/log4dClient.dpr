@@ -2,9 +2,10 @@ program log4dClient;
 
 uses
   Forms,
-  Log4DDemo1 in 'Log4DDemo1.pas' {frmLog4DDemo},
+  log4dClientFrm in 'log4dClientFrm.pas' {frmlog4dClient},
   Log4D in '..\..\src\Log4D.pas',
   CRT32 in '..\..\src\extended\CRT32.pas',
+  Log4DIndy in '..\..\src\extended\Log4DIndy.pas',
   Log4dThreadSafe in '..\..\src\extended\Log4dThreadSafe.pas';
 
 {$R *.RES}
@@ -12,6 +13,6 @@ uses
 begin
   Application.Initialize;
   Application.Title := 'Log4D Demo';
-  Application.CreateForm(TfrmLog4DDemo, frmLog4DDemo);
+  Application.CreateForm(Tfrmlog4dClient, frmlog4dClient);
   Application.Run;
 end.

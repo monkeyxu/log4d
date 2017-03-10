@@ -30,7 +30,6 @@ type
   TAppenderThread = class(TThread)
   // Background thread that is woken after each message.
   // It calls the appender's AppendSynchronized() from the main thread.
-  //
   // This design decouples the logging thread from the output.
   private
     FAppender: TLogThreadSafeAppender;

@@ -3,13 +3,13 @@
         <ProjectGuid>{95F7CB53-97CB-4D4D-B50C-ACBAD130D944}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="demo\log4dClient.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="chainsaw\log4dServer.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="ODSAppender\ODSAppender.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="log4dClient\log4dClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="log4dServer\log4dServer.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -20,24 +20,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="log4dClient">
-        <MSBuild Projects="demo\log4dClient.dproj"/>
-    </Target>
-    <Target Name="log4dClient:Clean">
-        <MSBuild Projects="demo\log4dClient.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="log4dClient:Make">
-        <MSBuild Projects="demo\log4dClient.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="log4dServer">
-        <MSBuild Projects="chainsaw\log4dServer.dproj"/>
-    </Target>
-    <Target Name="log4dServer:Clean">
-        <MSBuild Projects="chainsaw\log4dServer.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="log4dServer:Make">
-        <MSBuild Projects="chainsaw\log4dServer.dproj" Targets="Make"/>
-    </Target>
     <Target Name="ODSAppender">
         <MSBuild Projects="ODSAppender\ODSAppender.dproj"/>
     </Target>
@@ -47,14 +29,32 @@
     <Target Name="ODSAppender:Make">
         <MSBuild Projects="ODSAppender\ODSAppender.dproj" Targets="Make"/>
     </Target>
+    <Target Name="log4dClient">
+        <MSBuild Projects="log4dClient\log4dClient.dproj"/>
+    </Target>
+    <Target Name="log4dClient:Clean">
+        <MSBuild Projects="log4dClient\log4dClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="log4dClient:Make">
+        <MSBuild Projects="log4dClient\log4dClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="log4dServer">
+        <MSBuild Projects="log4dServer\log4dServer.dproj"/>
+    </Target>
+    <Target Name="log4dServer:Clean">
+        <MSBuild Projects="log4dServer\log4dServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="log4dServer:Make">
+        <MSBuild Projects="log4dServer\log4dServer.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="log4dClient;log4dServer;ODSAppender"/>
+        <CallTarget Targets="ODSAppender;log4dClient;log4dServer"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="log4dClient:Clean;log4dServer:Clean;ODSAppender:Clean"/>
+        <CallTarget Targets="ODSAppender:Clean;log4dClient:Clean;log4dServer:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="log4dClient:Make;log4dServer:Make;ODSAppender:Make"/>
+        <CallTarget Targets="ODSAppender:Make;log4dClient:Make;log4dServer:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

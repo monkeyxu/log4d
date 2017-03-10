@@ -1,9 +1,9 @@
 object frmChainsaw: TfrmChainsaw
   Left = 192
   Top = 133
-  Caption = 'Chainsaw'
-  ClientHeight = 497
-  ClientWidth = 685
+  Caption = 'log4d server'
+  ClientHeight = 390
+  ClientWidth = 710
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,8 +15,8 @@ object frmChainsaw: TfrmChainsaw
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   DesignSize = (
-    685
-    497)
+    710
+    390)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -69,8 +69,8 @@ object frmChainsaw: TfrmChainsaw
   object dbgLogging: TDBGrid
     Left = 4
     Top = 128
-    Width = 683
-    Height = 195
+    Width = 708
+    Height = 88
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = srcLogging
     DefaultDrawing = False
@@ -88,16 +88,18 @@ object frmChainsaw: TfrmChainsaw
   end
   object stbStatus: TStatusBar
     Left = 0
-    Top = 478
-    Width = 685
+    Top = 371
+    Width = 710
     Height = 19
     Panels = <>
     SimplePanel = True
+    ExplicitTop = 478
+    ExplicitWidth = 685
   end
   object memDetails: TRichEdit
     Left = 4
-    Top = 326
-    Width = 683
+    Top = 219
+    Width = 708
     Height = 137
     Anchors = [akLeft, akRight, akBottom]
     Font.Charset = GB2312_CHARSET
@@ -109,6 +111,8 @@ object frmChainsaw: TfrmChainsaw
     ReadOnly = True
     TabOrder = 17
     Zoom = 100
+    ExplicitTop = 326
+    ExplicitWidth = 683
   end
   object cmbLevel: TComboBox
     Left = 160
@@ -203,7 +207,7 @@ object frmChainsaw: TfrmChainsaw
     OnChange = FilterChange
   end
   object btnClear: TButton
-    Left = 610
+    Left = 635
     Top = 4
     Width = 75
     Height = 21
@@ -211,6 +215,7 @@ object frmChainsaw: TfrmChainsaw
     Caption = '&Clear Filter'
     TabOrder = 14
     OnClick = btnClearClick
+    ExplicitLeft = 610
   end
   object edtNDC: TEdit
     Left = 160
@@ -279,7 +284,7 @@ object frmChainsaw: TfrmChainsaw
     OnClick = FilterChange
   end
   object btnClearLog: TButton
-    Left = 610
+    Left = 635
     Top = 52
     Width = 75
     Height = 21
@@ -287,6 +292,7 @@ object frmChainsaw: TfrmChainsaw
     Caption = 'Clear Log'
     TabOrder = 15
     OnClick = mniClearClick
+    ExplicitLeft = 610
   end
   object mnuMain: TMainMenu
     Left = 148
@@ -332,6 +338,7 @@ object frmChainsaw: TfrmChainsaw
   object udpServer: TIdUDPServer
     Bindings = <>
     DefaultPort = 0
+    OnUDPRead = udpServerUDPRead
     Left = 260
     Top = 240
   end
