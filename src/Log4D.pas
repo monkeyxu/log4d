@@ -926,6 +926,7 @@ type
   TLogCnDebugAppender = class(TLogCustomAppender)
   protected
     procedure DoAppend(const Event: TLogEvent); override;
+    procedure DoAppend(const Message: string); override;
   end;
   {$ENDIF}
 
@@ -4230,6 +4231,11 @@ end;
 
 {$ENDIF}
 
+
+procedure TLogCnDebugAppender.DoAppend(const Message: string);
+begin
+
+end;
 
 initialization
   { Timestamping. }
