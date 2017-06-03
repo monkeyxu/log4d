@@ -4129,7 +4129,7 @@ begin
   FBaseDate := FormatDateTime('YYYYMMDD', Now);
   FFileDir := FFileDir;
   FDataPattern := 'YYYYMMDD';
-  FPrefix := ChangeFileExt(ExtractFileName(ParamStr(0)), '');
+  FPrefix := ChangeFileExt(ExtractFileName(ParamStr(0)), '') + Format('[%d]', [GetCurrentProcessId]);
   FAppend := False;
   FFileName := '';
 end;
@@ -4154,7 +4154,7 @@ begin
     end
     else if (Name = FilePrefix) and (Value <> '') then
     begin
-      FPrefix := Value;
+      FPrefix := Value + Format('[%d]', [GetCurrentProcessId]);
     end;
   finally
     LeaveCriticalSection(FCriticalAppender);
