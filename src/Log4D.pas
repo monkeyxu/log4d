@@ -61,7 +61,7 @@ interface
 
 {$DEFINE HAS_UNIT_CONTNRS}
 {$DEFINE CRT32}
-{$DEFINE CnDebug}
+//{$DEFINE CnDebug}
 
 uses
   Classes,
@@ -4229,13 +4229,11 @@ begin
     CnDebugger.LogMsg(msgtxt);
 end;
 
-{$ENDIF}
-
-
 procedure TLogCnDebugAppender.DoAppend(const Message: string);
 begin
 
 end;
+{$ENDIF}
 
 initialization
   { Timestamping. }
