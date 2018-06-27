@@ -201,6 +201,15 @@ object frmlog4dClient: Tfrmlog4dClient
         OnChange = cmbThresholdChange
       end
     end
+    object Button1: TButton
+      Left = 579
+      Top = 14
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 8
+      OnClick = Button1Click
+    end
   end
   object pnlLeft: TPanel
     Left = 0
